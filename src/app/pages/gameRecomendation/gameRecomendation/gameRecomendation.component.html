@@ -1,0 +1,176 @@
+<div class="gameRecommendation">
+  <form [formGroup]="gamesForm">
+    <mat-form-field>
+      <mat-label>Limit of games</mat-label>
+      <input
+        type="number"
+        matInput
+        formControlName="limit"
+        placeholder="Limit"
+      />
+    </mat-form-field>
+
+    <mat-chip-listbox [selectable]="true" multiple id="chipList" (change)="chipChanged($event)">
+      <mat-chip-option
+        [value]="'Sportowe'"
+        >Sportowe</mat-chip-option
+      >
+      <mat-chip-option
+        [value]="'Piłka nożna'"
+        >Piłka nożna</mat-chip-option
+      >
+      <mat-chip-option [value]="'PvP'" color="accent" selected
+        >PvP</mat-chip-option
+      >
+      <mat-chip-option [value]="'Rywalizacja'" color="warn"
+        >Rywalizacja</mat-chip-option
+      >
+      <mat-chip-option [value]="'Wieloosobowe'">Wieloosobowe</mat-chip-option>
+      <mat-chip-option [value]="'Symulatory'">Symulatory</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Realistyczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Otwarty świat</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">RPG</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Klimatyczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Jednoosobowe</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Przygodowe</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Znaczące wybory</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Magia</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Fantasy</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Akcja</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Horror</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Sieciowa kooperacja</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'"
+        >Survival horror</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'"
+        >Horror psychologiczny</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Mroczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Perspektywa pierwszej osoby</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Survival</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Kooperacja</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Budowanie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Piaskownica</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Walka pojazdami</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Wojna</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Historyczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">FPS</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >I wojna światowa</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Strzelanka</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Symulator kolonizacji</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Budowanie bazy</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Strategiczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Symulator</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Kosmos</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Platformowe</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Bullet hell</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Dungeons & Dragons</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Souls-like</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Perspektywa trzeciej osoby</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Taktyczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Eksploracja</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Science fiction</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Zarządzanie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Zombie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Tower defense</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Dungeon crawler</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Rougelike</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Relaksujące</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Przestępczość</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Rougelike akcji</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Hack and slash</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">PvE</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Destrukcja</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Wyścigowe</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Kierowanie pojazdem</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Łamigłówki</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Mitologia</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Zespołowe</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Polowanie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Gotowanie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Skradanie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Steampunk</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Piraci</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Bullet time</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Postapokaliptyczne</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Gra planszowa</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">MOBA</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Strzelanka z bohaterami</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'"
+        >Projektowanie i ilustrowanie</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Brutalność</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Superbohater</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Parkour</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">2D</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Thriller</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Śledztwo</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Detektywistyczne</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Towarzyskie</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Średniowieczne</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Transport</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Napad</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Strzelanka ewakuacyjna</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Battle royale</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Budowanie miasta</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'"
+        >Zarządzanie czasem</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Western</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'"
+        >Real-Time Strategy</mat-chip-option
+      >
+      <mat-chip-option [value]="'Realistyczne'">Bijatyka</mat-chip-option>
+      <mat-chip-option [value]="'Realistyczne'">Sztuki walki</mat-chip-option>
+    </mat-chip-listbox>
+
+    <mat-slider
+      min="0"
+      max="100"
+      step="5"
+      showTickMarks
+      discrete
+      [displayWith]="formatLabel"
+    >
+      <input matSliderThumb />
+    </mat-slider>
+
+    <button type="submit" mat-raised-button color="primary" (click)="log()">
+      Recommend
+    </button>
+  </form>
+</div>

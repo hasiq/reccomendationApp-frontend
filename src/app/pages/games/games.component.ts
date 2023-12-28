@@ -21,7 +21,15 @@ export class GamesComponent implements AfterViewInit, OnInit {
   dataSource?: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['ID', 'name', 'author', 'release date', 'gameDetails'];
+  displayedColumns = [
+    'ID',
+    'name',
+    'author',
+    'release date',
+    'gameDetails',
+    'editGame',
+    'deleteGame',
+  ];
 
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
@@ -45,5 +53,4 @@ export class GamesComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.fetchAllGames();
   }
-
 }

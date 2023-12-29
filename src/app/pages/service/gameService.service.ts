@@ -16,4 +16,12 @@ export class GameServiceService {
   getGameById(id: number): Observable<any> {
     return this.http.get<any>(`http://localhost:8080/games/${id}`);
   }
+
+  reccomendGame(genres: string, compatibility: number, limit: number) {
+    return this.http.post('http://localhost:8080/games/recommend', {
+      genres,
+      compatibility,
+      limit,
+    });
+  }
 }

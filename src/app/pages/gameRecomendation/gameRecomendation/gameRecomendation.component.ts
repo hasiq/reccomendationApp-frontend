@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
+import { GameServiceService } from '../../service/gameService.service';
+import { first } from 'rxjs';
 @Component({
   selector: 'app-gameRecomendation',
   standalone: true,
@@ -32,7 +34,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class GameRecomendationComponent implements OnInit {
   gamesForm!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  static value: number;
+  constructor(private fb: FormBuilder, private service: GameServiceService) {}
 
   ngOnInit() {
     this.gamesForm = this.fb.group({
@@ -44,7 +47,7 @@ export class GameRecomendationComponent implements OnInit {
     if (value >= 1000) {
       return Math.round(value / 100) + '';
     }
-
+    GameRecomendationComponent.value = value;
     return `${value}`;
   }
 
@@ -52,11 +55,10 @@ export class GameRecomendationComponent implements OnInit {
 
   chipChanged(event: any): void {
     const changedChip = event.source;
-
+    this.selectedChips = [];
     if (changedChip && changedChip.value && changedChip.selected) {
       this.selectedChips.push(changedChip.value);
     } else {
-      // Chip został odznaczony, więc usuń go z tablicy selectedChips
       const index = this.selectedChips.indexOf(changedChip.value);
 
       if (index >= 0) {
@@ -68,5 +70,19 @@ export class GameRecomendationComponent implements OnInit {
   log() {
     console.log(this.selectedChips);
     console.log('asdasdadsadas');
+  }
+
+  reccomend() {
+    console.log(this.selectedChips[0]);
+    console.log(GameRecomendationComponent.value );
+    console.log(this.gamesForm.controls['limit'].value);
+    this.service
+      .reccomendGame(
+        this.selectedChips[0],
+        GameRecomendationComponent.value ,
+        this.gamesForm.controls['limit'].value
+      )
+      .pipe(first())
+      .subscribe((data) => console.log(data));
   }
 }

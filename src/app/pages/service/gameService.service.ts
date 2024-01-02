@@ -24,4 +24,8 @@ export class GameServiceService {
       limit,
     });
   }
+
+  sortAndPaginate(pageNumber: Number, pageSize: Number) : Observable<any>{
+    return this.http.get(`http://localhost:8080/paged?pageSize=${pageSize}&pageNo=${pageNumber}`);
+  }
 }

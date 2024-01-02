@@ -79,7 +79,7 @@ export class GameRecomendationComponent implements OnInit {
     }
   }
 
-  reccomend() {
+  recommend() {
     console.log(this.selectedChips);
     console.log(GameRecomendationComponent.value);
     console.log(this.gamesForm.controls['limit'].value);

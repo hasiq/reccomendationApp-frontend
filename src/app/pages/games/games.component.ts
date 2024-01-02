@@ -4,7 +4,7 @@ import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { GamesItem } from './games-datasource';
 import { GameServiceService } from '../service/gameService.service';
-import { first } from 'rxjs';
+import { catchError, first, startWith, switchMap, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -42,6 +42,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+
+
   }
 
   constructor(private service: GameServiceService) {}
@@ -59,5 +61,9 @@ export class GamesComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.fetchAllGames();
+  }
+
+  getTableData$(pageNumber: Number, pageSize: Number) {
+    return this.service.sortAndPaginate(pageNumber, pageSize);
   }
 }

@@ -10,13 +10,16 @@
       />
     </mat-form-field>
 
-    <mat-chip-listbox
-      [selectable]="true"
-      multiple
-      id="chipList"
-      (change)="chipChanged($event)"
-    >
-      <mat-chip-option [value]="'Sportowe'">Sportowe</mat-chip-option>
+    <mat-chip-listbox selectable multiple>
+      <mat-chip-option
+        *ngFor="let genre of genres"
+        id="{{ genre.name }}"
+        (click)="recommendGamesByGenres(genre.name)"
+      >
+        {{ genre.name }}</mat-chip-option
+      >
+
+      <!-- <mat-chip-option [value]="'Sportowe'">Sportowe</mat-chip-option>
       <mat-chip-option [value]="'Piłka nożna'">Piłka nożna</mat-chip-option>
       <mat-chip-option [value]="'PvP'" color="accent" selected
         >PvP</mat-chip-option
@@ -160,7 +163,7 @@
         >Real-Time Strategy</mat-chip-option
       >
       <mat-chip-option [value]="'Bijatyka'">Bijatyka</mat-chip-option>
-      <mat-chip-option [value]="'Sztuki walki'">Sztuki walki</mat-chip-option>
+      <mat-chip-option [value]="'Sztuki walki'">Sztuki walki</mat-chip-option> -->
     </mat-chip-listbox>
 
     <mat-slider

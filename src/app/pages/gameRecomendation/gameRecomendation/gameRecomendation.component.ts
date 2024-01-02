@@ -14,7 +14,8 @@ import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { GameServiceService } from '../../service/gameService.service';
-import { first } from 'rxjs';
+import { elementAt, first } from 'rxjs';
+import { GenreService } from '../../service/genre.service';
 @Component({
   selector: 'app-gameRecomendation',
   standalone: true,
@@ -34,13 +35,24 @@ import { first } from 'rxjs';
 })
 export class GameRecomendationComponent implements OnInit {
   gamesForm!: FormGroup;
+
+  genres: any = [];
   static value: number;
-  constructor(private fb: FormBuilder, private service: GameServiceService) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: GameServiceService,
+    private service2: GenreService
+  ) {}
 
   ngOnInit() {
     this.gamesForm = this.fb.group({
       limit: ['', Validators.max(100)],
     });
+
+    return this.service2
+      .getAllGenres()
+      .pipe(first())
+      .subscribe((data) => (this.genres = data));
   }
 
   formatLabel(value: number): string {
@@ -53,33 +65,38 @@ export class GameRecomendationComponent implements OnInit {
 
   selectedChips: string[] = [];
 
-  chipChanged(event: any): void {
-    const changedChip = event.source;
-    this.selectedChips = [];
-    if (changedChip && changedChip.value && changedChip.selected) {
-      this.selectedChips.push(changedChip.value);
-    } else {
-      const index = this.selectedChips.indexOf(changedChip.value);
+  // chipChanged(event: any): void {
+  //   const changedChip = event.source;
+  //   this.selectedChips = [];
+  //   if (changedChip && changedChip.value && changedChip.selected) {
+  //     this.selectedChips.push(changedChip.value);
+  //   } else {
+  //     const index = this.selectedChips.indexOf(changedChip.value);
 
-      if (index >= 0) {
-        this.selectedChips.splice(index, 1);
-      }
+  //     if (index >= 0) {
+  //       this.selectedChips.splice(index, 1);
+  //     }
+  //   }
+  // }
+
+  recommendGamesByGenres(genres: string) {
+    const index = this.selectedChips.indexOf(genres);
+
+    if (index >= 0) {
+      this.selectedChips.splice(index, 1);
+    } else {
+      this.selectedChips.push(genres);
     }
   }
 
-  log() {
-    console.log(this.selectedChips);
-    console.log('asdasdadsadas');
-  }
-
   reccomend() {
-    console.log(this.selectedChips[0]);
-    console.log(GameRecomendationComponent.value );
+    console.log(this.selectedChips);
+    console.log(GameRecomendationComponent.value);
     console.log(this.gamesForm.controls['limit'].value);
     this.service
       .reccomendGame(
-        this.selectedChips[0],
-        GameRecomendationComponent.value ,
+        this.selectedChips,
+        GameRecomendationComponent.value,
         this.gamesForm.controls['limit'].value
       )
       .pipe(first())

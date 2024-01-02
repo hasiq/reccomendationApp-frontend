@@ -17,7 +17,7 @@ export class GameServiceService {
     return this.http.get<any>(`http://localhost:8080/games/${id}`);
   }
 
-  reccomendGame(genres: string, compatibility: number, limit: number) {
+  reccomendGame(genres: string[], compatibility: number, limit: number) {
     return this.http.post('http://localhost:8080/games/recommend', {
       genres,
       compatibility,

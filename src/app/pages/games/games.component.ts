@@ -6,13 +6,20 @@ import { GamesItem } from './games-datasource';
 import { GameServiceService } from '../service/gameService.service';
 import { first } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss'],
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, RouterModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    RouterModule,
+    MatButtonModule,
+  ],
 })
 export class GamesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;

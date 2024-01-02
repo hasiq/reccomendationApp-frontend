@@ -1,13 +1,43 @@
+<table
+  [dataSource]="data"
+  mat-table
+  class="full-width-table"
+  aria-label="Elements"
+  *ngIf="data"
+>
+  <ng-container matColumnDef="ID">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="compatibility">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Compatibility</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.compatibility | percent }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
 <div class="gameRecommendation">
   <form [formGroup]="gamesForm">
     <mat-form-field>
       <mat-label>Limit of games</mat-label>
       <input
-        type="number"
         matInput
+        type="number"
         formControlName="limit"
         placeholder="Limit"
       />
+      @if(gamesForm.hasError('max')){
+      <mat-error>Too big number</mat-error>
+      }
     </mat-form-field>
 
     <mat-chip-listbox selectable multiple>
@@ -18,152 +48,6 @@
       >
         {{ genre.name }}</mat-chip-option
       >
-
-      <!-- <mat-chip-option [value]="'Sportowe'">Sportowe</mat-chip-option>
-      <mat-chip-option [value]="'Piłka nożna'">Piłka nożna</mat-chip-option>
-      <mat-chip-option [value]="'PvP'" color="accent" selected
-        >PvP</mat-chip-option
-      >
-      <mat-chip-option [value]="'Rywalizacja'" color="warn"
-        >Rywalizacja</mat-chip-option
-      >
-      <mat-chip-option [value]="'Wieloosobowe'">Wieloosobowe</mat-chip-option>
-      <mat-chip-option [value]="'Symulatory'">Symulatory</mat-chip-option>
-      <mat-chip-option [value]="'Realistyczne'">Realistyczne</mat-chip-option>
-      <mat-chip-option [value]="'Otwarty świat'">Otwarty świat</mat-chip-option>
-      <mat-chip-option [value]="'RPG'">RPG</mat-chip-option>
-      <mat-chip-option [value]="'Klimatyczne'">Klimatyczne</mat-chip-option>
-      <mat-chip-option [value]="'Jednoosobowe'">Jednoosobowe</mat-chip-option>
-      <mat-chip-option [value]="'Przygodowe'">Przygodowe</mat-chip-option>
-      <mat-chip-option [value]="'Znaczące wybory'"
-        >Znaczące wybory</mat-chip-option
-      >
-      <mat-chip-option [value]="'Magia'">Magia</mat-chip-option>
-      <mat-chip-option [value]="'Fantasy'">Fantasy</mat-chip-option>
-      <mat-chip-option [value]="'Akcja'">Akcja</mat-chip-option>
-      <mat-chip-option [value]="'Horror'">Horror</mat-chip-option>
-      <mat-chip-option [value]="'Sieciowa kooperacja'"
-        >Sieciowa kooperacja</mat-chip-option
-      >
-      <mat-chip-option [value]="'Survival horror'"
-        >Survival horror</mat-chip-option
-      >
-      <mat-chip-option [value]="'Horror psychologiczny'"
-        >Horror psychologiczny</mat-chip-option
-      >
-      <mat-chip-option [value]="'Mroczne'">Mroczne</mat-chip-option>
-      <mat-chip-option [value]="'Perspektywa pierwszej osoby'"
-        >Perspektywa pierwszej osoby</mat-chip-option
-      >
-      <mat-chip-option [value]="'Survival'">Survival</mat-chip-option>
-      <mat-chip-option [value]="'Kooperacja'">Kooperacja</mat-chip-option>
-      <mat-chip-option [value]="'Budowanie'">Budowanie</mat-chip-option>
-      <mat-chip-option [value]="'Piaskownica'">Piaskownica</mat-chip-option>
-      <mat-chip-option [value]="'Walka pojazdami'"
-        >Walka pojazdami</mat-chip-option
-      >
-      <mat-chip-option [value]="'Wojna'">Wojna</mat-chip-option>
-      <mat-chip-option [value]="'Historyczne'">Historyczne</mat-chip-option>
-      <mat-chip-option [value]="'FPS'">FPS</mat-chip-option>
-      <mat-chip-option [value]="'I wojna światowa'"
-        >I wojna światowa</mat-chip-option
-      >
-      <mat-chip-option [value]="'Strzelanka'">Strzelanka</mat-chip-option>
-      <mat-chip-option [value]="'Symulator kolonizacji'"
-        >Symulator kolonizacji</mat-chip-option
-      >
-      <mat-chip-option [value]="'Budowanie bazy'"
-        >Budowanie bazy</mat-chip-option
-      >
-      <mat-chip-option [value]="'Strategiczne'">Strategiczne</mat-chip-option>
-      <mat-chip-option [value]="'Symulator'">Symulator</mat-chip-option>
-      <mat-chip-option [value]="'Kosmos'">Kosmos</mat-chip-option>
-      <mat-chip-option [value]="'Platformowe'">Platformowe</mat-chip-option>
-      <mat-chip-option [value]="'Bullet hell'">Bullet hell</mat-chip-option>
-      <mat-chip-option [value]="'Dungeons & Dragons'"
-        >Dungeons & Dragons</mat-chip-option
-      >
-      <mat-chip-option [value]="'Souls-like'">Souls-like</mat-chip-option>
-      <mat-chip-option [value]="'Perspektywa trzeciej osoby'"
-        >Perspektywa trzeciej osoby</mat-chip-option
-      >
-      <mat-chip-option [value]="'Taktyczne'">Taktyczne</mat-chip-option>
-      <mat-chip-option [value]="'Eksploracja'">Eksploracja</mat-chip-option>
-      <mat-chip-option [value]="'Science fiction'"
-        >Science fiction</mat-chip-option
-      >
-      <mat-chip-option [value]="'Zarządzanie'">Zarządzanie</mat-chip-option>
-      <mat-chip-option [value]="'Zombie'">Zombie</mat-chip-option>
-      <mat-chip-option [value]="'Tower defense'">Tower defense</mat-chip-option>
-      <mat-chip-option [value]="'Dungeon crawler'"
-        >Dungeon crawler</mat-chip-option
-      >
-      <mat-chip-option [value]="'Rougelike'">Rougelike</mat-chip-option>
-      <mat-chip-option [value]="'Relaksujące'">Relaksujące</mat-chip-option>
-      <mat-chip-option [value]="'Przestępczość'">Przestępczość</mat-chip-option>
-      <mat-chip-option [value]="'Rougelike akcji'"
-        >Rougelike akcji</mat-chip-option
-      >
-      <mat-chip-option [value]="'Hack and slash'"
-        >Hack and slash</mat-chip-option
-      >
-      <mat-chip-option [value]="'PvE'">PvE</mat-chip-option>
-      <mat-chip-option [value]="'Destrukcja'">Destrukcja</mat-chip-option>
-      <mat-chip-option [value]="'Wyścigowe'">Wyścigowe</mat-chip-option>
-      <mat-chip-option [value]="'Kierowanie pojazdem'"
-        >Kierowanie pojazdem</mat-chip-option
-      >
-      <mat-chip-option [value]="'Łamigłówki'">Łamigłówki</mat-chip-option>
-      <mat-chip-option [value]="'Mitologia'">Mitologia</mat-chip-option>
-      <mat-chip-option [value]="'Zespołowe'">Zespołowe</mat-chip-option>
-      <mat-chip-option [value]="'Polowanie'">Polowanie</mat-chip-option>
-      <mat-chip-option [value]="'Gotowanie'">Gotowanie</mat-chip-option>
-      <mat-chip-option [value]="'Skradanie'">Skradanie</mat-chip-option>
-      <mat-chip-option [value]="'Steampunk'">Steampunk</mat-chip-option>
-      <mat-chip-option [value]="'Piraci'">Piraci</mat-chip-option>
-      <mat-chip-option [value]="'Bullet time'">Bullet time</mat-chip-option>
-      <mat-chip-option [value]="'Postapokaliptyczne'"
-        >Postapokaliptyczne</mat-chip-option
-      >
-      <mat-chip-option [value]="'Gra planszowa'">Gra planszowa</mat-chip-option>
-      <mat-chip-option [value]="'MOBA'">MOBA</mat-chip-option>
-      <mat-chip-option [value]="'Strzelanka z bohaterami'"
-        >Strzelanka z bohaterami</mat-chip-option
-      >
-      <mat-chip-option [value]="'Projektowanie i ilustrowanie'"
-        >Projektowanie i ilustrowanie</mat-chip-option
-      >
-      <mat-chip-option [value]="'Brutalność'">Brutalność</mat-chip-option>
-      <mat-chip-option [value]="'Superbohater'">Superbohater</mat-chip-option>
-      <mat-chip-option [value]="'Parkour'">Parkour</mat-chip-option>
-      <mat-chip-option [value]="'2D'">2D</mat-chip-option>
-      <mat-chip-option [value]="'Thriller'">Thriller</mat-chip-option>
-      <mat-chip-option [value]="'Śledztwo'">Śledztwo</mat-chip-option>
-      <mat-chip-option [value]="'Detektywistyczne'"
-        >Detektywistyczne</mat-chip-option
-      >
-      <mat-chip-option [value]="'Towarzyskie'">Towarzyskie</mat-chip-option>
-      <mat-chip-option [value]="'Średniowieczne'"
-        >Średniowieczne</mat-chip-option
-      >
-      <mat-chip-option [value]="'Transport'">Transport</mat-chip-option>
-      <mat-chip-option [value]="'Napad'">Napad</mat-chip-option>
-      <mat-chip-option [value]="'Strzelanka ewakuacyjna'"
-        >Strzelanka ewakuacyjna</mat-chip-option
-      >
-      <mat-chip-option [value]="'Battle royale'">Battle royale</mat-chip-option>
-      <mat-chip-option [value]="'Budowanie miasta'"
-        >Budowanie miasta</mat-chip-option
-      >
-      <mat-chip-option [value]="'Zarządzanie czasem'"
-        >Zarządzanie czasem</mat-chip-option
-      >
-      <mat-chip-option [value]="'Western'">Western</mat-chip-option>
-      <mat-chip-option [value]="'Real-Time Strategy'"
-        >Real-Time Strategy</mat-chip-option
-      >
-      <mat-chip-option [value]="'Bijatyka'">Bijatyka</mat-chip-option>
-      <mat-chip-option [value]="'Sztuki walki'">Sztuki walki</mat-chip-option> -->
     </mat-chip-listbox>
 
     <mat-slider
@@ -178,6 +62,7 @@
     </mat-slider>
 
     <button
+      [disabled]="gamesForm.invalid"
       type="submit"
       mat-raised-button
       color="primary"

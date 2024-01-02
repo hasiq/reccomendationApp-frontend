@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { GameServiceService } from '../../service/gameService.service';
 import { elementAt, first } from 'rxjs';
 import { GenreService } from '../../service/genre.service';
+import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-gameRecomendation',
   standalone: true,
@@ -29,14 +30,17 @@ import { GenreService } from '../../service/genre.service';
     MatChipsModule,
     MatSliderModule,
     FormsModule,
+    MatTableModule,
   ],
   templateUrl: './gameRecomendation.component.html',
   styleUrls: ['./gameRecomendation.component.css'],
 })
 export class GameRecomendationComponent implements OnInit {
   gamesForm!: FormGroup;
-
+  data?: any;
   genres: any = [];
+
+  displayedColumns = ['ID', 'name', 'compatibility'];
   static value: number;
   constructor(
     private fb: FormBuilder,
@@ -65,20 +69,6 @@ export class GameRecomendationComponent implements OnInit {
 
   selectedChips: string[] = [];
 
-  // chipChanged(event: any): void {
-  //   const changedChip = event.source;
-  //   this.selectedChips = [];
-  //   if (changedChip && changedChip.value && changedChip.selected) {
-  //     this.selectedChips.push(changedChip.value);
-  //   } else {
-  //     const index = this.selectedChips.indexOf(changedChip.value);
-
-  //     if (index >= 0) {
-  //       this.selectedChips.splice(index, 1);
-  //     }
-  //   }
-  // }
-
   recommendGamesByGenres(genres: string) {
     const index = this.selectedChips.indexOf(genres);
 
@@ -100,6 +90,6 @@ export class GameRecomendationComponent implements OnInit {
         this.gamesForm.controls['limit'].value
       )
       .pipe(first())
-      .subscribe((data) => console.log(data));
+      .subscribe((data) => (console.log(data), (this.data = data)));
   }
 }

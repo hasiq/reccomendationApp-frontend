@@ -1,12 +1,24 @@
 <mat-label>Search by name</mat-label>
 <form [formGroup]="gamesForm">
-  <input matInput type="text" formControlName="name" placeholder="game name" />
+  <input
+    matInput
+    type="text"
+    formControlName="name"
+    placeholder="game name"
+    (input)="findGame()"
+  />
   <button type="submit" mat-raised-button color="primary" (click)="findGame()">
     Search
   </button>
 </form>
 
-<button *ngIf="searched" type="submit" mat-raised-button color="primary" (click)="AllGames()">
+<button
+  *ngIf="searched"
+  type="submit"
+  mat-raised-button
+  color="primary"
+  (click)="AllGames()"
+>
   Get all Games
 </button>
 <div class="mat-elevation-z8">
@@ -15,6 +27,7 @@
     mat-table
     class="full-width-table"
     matSort
+    #empTbSort="matSort"
     aria-label="Elements"
   >
     <ng-container matColumnDef="ID">

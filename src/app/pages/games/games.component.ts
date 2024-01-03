@@ -62,9 +62,11 @@ export class GamesComponent implements AfterViewInit, OnInit {
     'editGame',
     'deleteGame',
   ];
+  sort: any;
 
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
+
     this.paginator.page.subscribe((event: PageEvent) => {
       this.pageIndex = event.pageIndex;
       this.pageSize = event.pageSize;

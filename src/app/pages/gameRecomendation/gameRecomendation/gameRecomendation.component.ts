@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
+  FormGroupDirective,
+  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -31,6 +34,8 @@ import { MatTableModule } from '@angular/material/table';
     MatSliderModule,
     FormsModule,
     MatTableModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './gameRecomendation.component.html',
   styleUrls: ['./gameRecomendation.component.css'],

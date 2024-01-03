@@ -11,6 +11,17 @@ import { GameServiceService } from '../service/gameService.service';
 import { catchError, first, startWith, switchMap, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-games',
@@ -23,12 +34,18 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     RouterModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
   ],
 })
 export class GamesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<GamesItem>;
-
+  searched = false;
+  gamesForm!: FormGroup;
   pageSize = 10;
   pageIndex = 0;
   totalItems = 0;
@@ -67,7 +84,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
       });
   }
 
-  constructor(private service: GameServiceService) {}
+  constructor(private service: GameServiceService, private fb: FormBuilder) {}
 
   // fetchAllGames() {
   //   this.service
@@ -83,5 +100,27 @@ export class GamesComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     // this.fetchAllGames();
     this.loadData();
+    this.gamesForm = this.fb.group({
+      name: [''],
+    });
+  }
+
+  findGame() {
+    this.searched = true;
+    let name = this.gamesForm.controls['name'].value;
+    return this.service
+      .getByGameName(this.gamesForm.controls['name'].value)
+      .pipe(first())
+      .subscribe(
+        (data: any) =>
+          (this.dataSource = data.filter((data: any) =>
+            data.name.includes(name)
+          ))
+      );
+  }
+
+  AllGames() {
+    this.loadData();
+    this.searched = false;
   }
 }

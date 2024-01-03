@@ -32,4 +32,10 @@ export class GameServiceService {
 
     return this.http.get('http://localhost:8080/paged', { params });
   }
+
+  getByGameName(name: string) {
+    let params = new HttpParams().set('name', name);
+
+    return this.http.get('http://localhost:8080/games/name', { params });
+  }
 }

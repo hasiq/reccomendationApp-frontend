@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GamesItem } from '../games/games-datasource';
 import { Observable } from 'rxjs';
@@ -25,7 +25,11 @@ export class GameServiceService {
     });
   }
 
-  sortAndPaginate(pageNumber: Number, pageSize: Number) : Observable<any>{
-    return this.http.get(`http://localhost:8080/paged?pageSize=${pageSize}&pageNo=${pageNumber}`);
+  sortAndPaginate(pageNumber: Number, pageSize: Number): Observable<any> {
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('pageNo', pageNumber.toString());
+
+    return this.http.get('http://localhost:8080/paged', { params });
   }
 }

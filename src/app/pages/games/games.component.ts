@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import {
+  MatPaginatorModule,
+  MatPaginator,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { GamesItem } from './games-datasource';
 import { GameServiceService } from '../service/gameService.service';
@@ -23,8 +27,12 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class GamesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<GamesItem>;
+
+  pageSize = 10;
+  pageIndex = 0;
+  totalItems = 0;
+
   dataSource?: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -40,30 +48,40 @@ export class GamesComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
+    this.paginator.page.subscribe((event: PageEvent) => {
+      this.pageIndex = event.pageIndex;
+      this.pageSize = event.pageSize;
+      this.loadData();
+    });
     this.table.dataSource = this.dataSource;
 
+    this.loadData();
+  }
 
+  loadData() {
+    this.service
+      .sortAndPaginate(this.pageIndex, this.pageSize)
+      .subscribe((data: any) => {
+        this.totalItems = 101;
+        this.dataSource = data;
+      });
   }
 
   constructor(private service: GameServiceService) {}
 
-  fetchAllGames() {
-    this.service
-      .getAllGames()
-      .pipe(first())
-      .subscribe(
-        (games: any) => (
-          (this.dataSource = games), console.log(this.dataSource)
-        )
-      );
-  }
+  // fetchAllGames() {
+  //   this.service
+  //     .getAllGames()
+  //     .pipe(first())
+  //     .subscribe(
+  //       (games: any) => (
+  //         (this.dataSource = games), console.log(this.dataSource)
+  //       )
+  //     );
+  // }
 
   ngOnInit(): void {
-    this.fetchAllGames();
-  }
-
-  getTableData$(pageNumber: Number, pageSize: Number) {
-    return this.service.sortAndPaginate(pageNumber, pageSize);
+    // this.fetchAllGames();
+    this.loadData();
   }
 }

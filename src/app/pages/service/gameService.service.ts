@@ -61,7 +61,9 @@ export class GameServiceService {
     return window.localStorage.getItem('auth');
   }
 
-  countAllGames(){
-    return this.http.get('http://localhost:8080/count')
+  countAllGames() {
+    return this.http.get('http://localhost:8080/count');
   }
+
+
 }

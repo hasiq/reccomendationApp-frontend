@@ -8,16 +8,6 @@
     (input)="findGame()"
   />
 </form>
-
-<button
-  *ngIf="searched"
-  type="submit"
-  mat-raised-button
-  color="primary"
-  (click)="AllGames()"
->
-  Get all Games
-</button>
 <div class="mat-elevation-z8">
   <table
     [dataSource]="dataSource"

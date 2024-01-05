@@ -56,7 +56,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['ID', 'name', 'author', 'release date', 'gameDetails'];
   sort: any;
-
+  search: string = '';
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
 
@@ -105,10 +105,15 @@ export class GamesComponent implements AfterViewInit, OnInit {
   }
 
   findGame() {
+    if (this.gamesForm.controls['name'].value == '') {
+      this.loadData();
+    }
     this.searched = true;
-    let name = this.gamesForm.controls['name'].value;
+    this.search = this.gamesForm.controls['name'].value;
+    let splited = this.search.split(' ');
+    let name = this.toInitCase(splited);
     return this.service
-      .getByGameName(this.gamesForm.controls['name'].value)
+      .getByGameName(name)
       .pipe(first())
       .subscribe(
         (data: any) =>
@@ -118,11 +123,6 @@ export class GamesComponent implements AfterViewInit, OnInit {
       );
   }
 
-  AllGames() {
-    this.loadData();
-    this.searched = false;
-    this.gamesForm.reset();
-  }
 
   switchTable() {
     if (this.token != null) {
@@ -136,5 +136,13 @@ export class GamesComponent implements AfterViewInit, OnInit {
         'deleteGame',
       ];
     }
+  }
+
+  toInitCase(name: any): string {
+    for (let i = 0; i < name.length; i++) {
+      name[i] = name[i][0].toUpperCase() + name[i].substr(1);
+    }
+
+    return name.join(' ');
   }
 }

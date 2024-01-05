@@ -60,4 +60,8 @@ export class GameServiceService {
   getAuthToken(): string | null {
     return window.localStorage.getItem('auth');
   }
+
+  countAllGames(){
+    return this.http.get('http://localhost:8080/count')
+  }
 }

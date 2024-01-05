@@ -72,9 +72,12 @@ export class GamesComponent implements AfterViewInit, OnInit {
 
   loadData() {
     this.service
+      .countAllGames()
+      .pipe(first())
+      .subscribe((data: any) => (this.totalItems = data));
+    this.service
       .sortAndPaginate(this.pageIndex, this.pageSize)
       .subscribe((data: any) => {
-        this.totalItems = 101;
         this.dataSource = data;
       });
   }

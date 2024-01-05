@@ -7,9 +7,6 @@
     placeholder="game name"
     (input)="findGame()"
   />
-  <button type="submit" mat-raised-button color="primary" (click)="findGame()">
-    Search
-  </button>
 </form>
 
 <button
@@ -70,7 +67,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="editGame">
+    <ng-container *ngIf="token" matColumnDef="editGame">
       <th mat-header-cell *matHeaderCellDef>Edit game</th>
       <td mat-cell *matCellDef="let row; let i = index">
         <button
@@ -85,7 +82,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="deleteGame">
+    <ng-container *ngIf="token" matColumnDef="deleteGame">
       <th mat-header-cell *matHeaderCellDef>Delete game</th>
       <td mat-cell *matCellDef="let row; let i = index">
         <button

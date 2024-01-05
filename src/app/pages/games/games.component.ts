@@ -49,19 +49,12 @@ export class GamesComponent implements AfterViewInit, OnInit {
   pageSize = 10;
   pageIndex = 0;
   totalItems = 0;
+  token = window.localStorage.getItem('auth');
 
   dataSource?: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = [
-    'ID',
-    'name',
-    'author',
-    'release date',
-    'gameDetails',
-    'editGame',
-    'deleteGame',
-  ];
+  displayedColumns = ['ID', 'name', 'author', 'release date', 'gameDetails'];
   sort: any;
 
   ngAfterViewInit(): void {
@@ -105,6 +98,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
     this.gamesForm = this.fb.group({
       name: [''],
     });
+    this.switchTable();
   }
 
   findGame() {
@@ -124,5 +118,20 @@ export class GamesComponent implements AfterViewInit, OnInit {
   AllGames() {
     this.loadData();
     this.searched = false;
+    this.gamesForm.reset();
+  }
+
+  switchTable() {
+    if (this.token != null) {
+      this.displayedColumns = [
+        'ID',
+        'name',
+        'author',
+        'release date',
+        'gameDetails',
+        'editGame',
+        'deleteGame',
+      ];
+    }
   }
 }

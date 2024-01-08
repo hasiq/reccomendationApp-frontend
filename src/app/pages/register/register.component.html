@@ -1,5 +1,6 @@
 <form [formGroup]="form">
   <mat-form-field>
+    <label for="name">First name</label>
     <input
       class="formControl"
       matInput
@@ -8,9 +9,9 @@
       name="name"
       formControlName="name"
     />
-    <label for="name">First name</label>
   </mat-form-field>
   <mat-form-field>
+    <label for="lastName">Last name</label>
     <input
       class="formControl"
       matInput
@@ -19,9 +20,9 @@
       name="lastName"
       formControlName="lastName"
     />
-    <label for="lastName">Last name</label>
   </mat-form-field>
   <mat-form-field>
+    <label for="login">Login</label>
     <input
       class="formControl"
       matInput
@@ -30,9 +31,9 @@
       name="login"
       formControlName="login"
     />
-    <label for="login">Login</label>
   </mat-form-field>
   <mat-form-field>
+    <label for="password">Password</label>
     <input
       class="formControl"
       matInput
@@ -41,8 +42,9 @@
       name="password"
       formControlName="password"
     />
-    <label for="password">Password</label>
   </mat-form-field>
 
-  <button mat-raised-button type="submit" (click)="Register()">Basic</button>
+  <button mat-raised-button color="primary" type="submit" (click)="Register()">
+    Basic
+  </button>
 </form>

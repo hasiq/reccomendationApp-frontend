@@ -8,11 +8,15 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="service.logged == false">
       <a mat-list-item routerLink="games">Games</a>
       <a mat-list-item routerLink="recommend">Recommend Game</a>
       <a mat-list-item routerLink="login">Login</a>
       <a mat-list-item routerLink="register">Register</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="service.logged == true">
+      <a mat-list-item routerLink="games">Games</a>
+      <a mat-list-item routerLink="recommend">Recommend Game</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

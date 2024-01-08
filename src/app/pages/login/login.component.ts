@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../service/user.service';
 import { first } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { GameServiceService } from '../service/gameService.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private service: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private gamesService: GameServiceService
   ) {}
   userData: any;
   ngOnInit() {
@@ -60,7 +62,8 @@ export class LoginComponent implements OnInit {
         // (this.userData = data),
         //   console.log(this.userData.token),
       });
-    const delayInMilliseconds = 100; // Adjust the delay as needed
+      this.gamesService.logged = true;
+    const delayInMilliseconds = 100;
 
     setTimeout(() => {
       this.router.navigate(['/games']);

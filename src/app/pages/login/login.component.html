@@ -1,5 +1,6 @@
 <form [formGroup]="form">
   <mat-form-field>
+    <label for="loginName">Username</label>
     <input
       class="formControl"
       matInput
@@ -8,9 +9,9 @@
       name="login"
       formControlName="login"
     />
-    <label for="loginName">Username</label>
   </mat-form-field>
   <mat-form-field>
+    <label for="loginPassword">Password</label>
     <input
       class="formControl"
       matInput
@@ -19,13 +20,8 @@
       name="password"
       formControlName="password"
     />
-    <label for="loginPassword">Password</label>
   </mat-form-field>
-  <button
-    mat-raised-button
-    type="submit"
-    (click)="Login()"
-  >
+  <button mat-raised-button color="primary" type="submit" (click)="Login()">
     Basic
   </button>
 </form>

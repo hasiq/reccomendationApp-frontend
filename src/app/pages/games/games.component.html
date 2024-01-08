@@ -1,13 +1,26 @@
-<mat-label>Search by name</mat-label>
 <form [formGroup]="gamesForm">
-  <input
-    matInput
-    type="text"
-    formControlName="name"
-    placeholder="game name"
-    (input)="findGame()"
-  />
+  <mat-form-field>
+    <mat-label>Search by name</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="name"
+      placeholder="game name"
+      (input)="findGame()"
+    />
+  </mat-form-field>
 </form>
+
+<button
+  *ngIf="token != null"
+  class="button"
+  mat-button
+  mat-raised-button
+  color="primary"
+  (click)="logout()"
+>
+  Logout
+</button>
 <div class="mat-elevation-z8">
   <table
     [dataSource]="dataSource"

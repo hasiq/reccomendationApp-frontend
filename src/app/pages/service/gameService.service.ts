@@ -65,5 +65,5 @@ export class GameServiceService {
     return this.http.get('http://localhost:8080/count');
   }
 
-
+  logged = false;
 }

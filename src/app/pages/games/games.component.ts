@@ -9,7 +9,13 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { GamesItem } from './games-datasource';
 import { GameServiceService } from '../service/gameService.service';
 import { catchError, first, startWith, switchMap, map } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Route,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +28,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-games',
@@ -57,6 +64,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
   displayedColumns = ['ID', 'name', 'author', 'release date', 'gameDetails'];
   sort: any;
   search: string = '';
+  mySubscription: any;
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
 
@@ -82,7 +90,20 @@ export class GamesComponent implements AfterViewInit, OnInit {
       });
   }
 
-  constructor(private service: GameServiceService, private fb: FormBuilder) {}
+  constructor(
+    private service: GameServiceService,
+    private fb: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
+  }
 
   // fetchAllGames() {
   //   this.service
@@ -123,7 +144,6 @@ export class GamesComponent implements AfterViewInit, OnInit {
       );
   }
 
-
   switchTable() {
     if (this.token != null) {
       this.displayedColumns = [
@@ -144,5 +164,12 @@ export class GamesComponent implements AfterViewInit, OnInit {
     }
 
     return name.join(' ');
+  }
+
+  logout() {
+    console.log(window.localStorage.getItem('auth'));
+    window.localStorage.removeItem('auth');
+    this.router.navigate([this.router.url]);
+    this.service.logged = false;
   }
 }

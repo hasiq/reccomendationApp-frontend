@@ -1,3 +1,4 @@
+import { EditFilmComponent } from './../editFilm/editFilm.component';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import {
@@ -28,7 +29,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-games',
@@ -46,12 +47,14 @@ import { BrowserModule } from '@angular/platform-browser';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    MatDialogModule,
   ],
 })
 export class GamesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<GamesItem>;
   searched = false;
+  dialogRef!: any;
   gamesForm!: FormGroup;
   pageSize = 10;
   pageIndex = 0;
@@ -94,7 +97,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
     private service: GameServiceService,
     private fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -171,5 +175,23 @@ export class GamesComponent implements AfterViewInit, OnInit {
     window.localStorage.removeItem('auth');
     this.router.navigate([this.router.url]);
     this.service.logged = false;
+  }
+
+  edit(gameId: any) {
+    this.dialog.open(EditFilmComponent, {
+      height: '300px',
+      data: {
+        dataKey: this.dataSource[gameId],
+      },
+    });
+    this.dialog.afterAllClosed.subscribe(() => this.loadData());
+  }
+
+  delete(id: any) {
+    let data = this.dataSource[id];
+    this.service
+      .deleteGame(data.id)
+      .pipe(first())
+      .subscribe(() => this.loadData());
   }
 }

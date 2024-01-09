@@ -1,0 +1,60 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <label for="gameName">GameName</label>
+    <input
+      class="formControl"
+      matInput
+      type="text"
+      id="gameName"
+      name="name"
+      formControlName="name"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <label for="description">Description</label>
+    <input
+      class="formControl"
+      matInput
+      type="text"
+      id="description"
+      name="desc"
+      formControlName="description"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <label for="author">Author</label>
+    <input
+      class="formControl"
+      matInput
+      type="text"
+      id="author"
+      name="author"
+      formControlName="author"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <label for="releaseDate">Release date</label>
+    <input
+      class="formControl"
+      matInput
+      type="text"
+      id="releaseDate"
+      name="releaseDate"
+      formControlName="releaseDate"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" (click)="edit(form)">
+    Basic
+  </button>
+</form>
+
+<mat-chip-listbox selectable multiple>
+  <mat-chip-option
+    *ngFor="let genre of genres"
+    id="{{ genre.name }}"
+    (click)="selected(genre.name)"
+  >
+    {{ genre.name }}</mat-chip-option
+  >
+</mat-chip-listbox>

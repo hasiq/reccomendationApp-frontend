@@ -65,5 +65,23 @@ export class GameServiceService {
     return this.http.get('http://localhost:8080/count');
   }
 
+  editGame(id: number, body: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.put(`http://localhost:8080/games/${id}`, body, {
+      headers,
+    });
+  }
+
+  deleteGame(id: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.delete(`http://localhost:8080/games/${id}`, {
+      headers,
+    });
+  }
+
   logged = false;
 }

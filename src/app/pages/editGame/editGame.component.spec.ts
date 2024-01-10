@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { EditFilmComponent } from './editFilm.component';
+import { EditFilmComponent } from './editGame.component';
 
 describe('EditFilmComponent', () => {
   let component: EditFilmComponent;
@@ -11,9 +11,8 @@ describe('EditFilmComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditFilmComponent ]
-    })
-    .compileComponents();
+      declarations: [EditFilmComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

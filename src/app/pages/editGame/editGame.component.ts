@@ -18,8 +18,8 @@ import { GenreService } from '../service/genre.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-editFilm',
-  templateUrl: './editFilm.component.html',
-  styleUrls: ['./editFilm.component.css'],
+  templateUrl: './editGame.component.html',
+  styleUrls: ['./editGame.component.css'],
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -64,6 +64,7 @@ export class EditFilmComponent implements OnInit {
       author: [game.author],
       genre: [this.selectedChips],
       releaseDate: [game.releaseDate],
+      steamLink: [game.steamLink],
     });
   }
 
@@ -85,6 +86,7 @@ export class EditFilmComponent implements OnInit {
       .subscribe(() => {
         console.log(data);
         console.log(data.value.description);
+        console.log(data.value.steamLink);
       });
     this.dialogRef.close();
   }

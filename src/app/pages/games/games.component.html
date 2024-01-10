@@ -78,7 +78,7 @@
       </td>
     </ng-container>
 
-    <ng-container *ngIf="token" matColumnDef="editGame">
+    <ng-container matColumnDef="editGame">
       <th mat-header-cell *matHeaderCellDef>Edit game</th>
       <td mat-cell *matCellDef="let row; let i = index">
         <button
@@ -93,7 +93,7 @@
       </td>
     </ng-container>
 
-    <ng-container *ngIf="token" matColumnDef="deleteGame">
+    <ng-container matColumnDef="deleteGame">
       <th mat-header-cell *matHeaderCellDef>Delete game</th>
       <td mat-cell *matCellDef="let row; let i = index">
         <button

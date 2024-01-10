@@ -1,4 +1,4 @@
-import { EditFilmComponent } from './../editFilm/editFilm.component';
+import { EditFilmComponent } from '../editGame/editGame.component';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import {
@@ -30,6 +30,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-games',
@@ -59,8 +60,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
   pageSize = 10;
   pageIndex = 0;
   totalItems = 0;
-  token = window.localStorage.getItem('auth');
-
+  token: any = window.sessionStorage.getItem('auth');
   dataSource?: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -68,6 +68,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
   sort: any;
   search: string = '';
   mySubscription: any;
+  role: any = LoginComponent.role;
   ngAfterViewInit(): void {
     // this.dataSource.sort = this.sort;
 
@@ -171,8 +172,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
   }
 
   logout() {
-    console.log(window.localStorage.getItem('auth'));
-    window.localStorage.removeItem('auth');
+    console.log(window.sessionStorage.getItem('auth'));
+    window.sessionStorage.removeItem('auth');
     this.router.navigate([this.router.url]);
     this.service.logged = false;
   }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -32,6 +32,14 @@ export class UserService {
   }
 
   getAuthToken(): string | null {
-    return window.localStorage.getItem('auth');
+    return window.sessionStorage.getItem('auth');
+  }
+
+  getUserByLogin(login: string) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    let params = new HttpParams().set('login', login);
+    return this.http.get('http://localhost:8080/user', { params, headers });
   }
 }

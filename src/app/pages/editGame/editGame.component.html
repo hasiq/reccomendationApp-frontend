@@ -44,9 +44,17 @@
       formControlName="releaseDate"
     />
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" (click)="edit(form)">
-    Basic
-  </button>
+  <mat-form-field>
+    <label for="link">Link</label>
+    <input
+      class="formControl"
+      matInput
+      type="text"
+      id="link"
+      name="link"
+      formControlName="steamLink"
+    />
+  </mat-form-field>
 </form>
 
 <mat-chip-listbox selectable multiple>
@@ -58,3 +66,6 @@
     {{ genre.name }}</mat-chip-option
   >
 </mat-chip-listbox>
+<button mat-raised-button color="primary" type="submit" (click)="edit(form)">
+  Edit
+</button>

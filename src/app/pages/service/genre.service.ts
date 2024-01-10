@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,6 @@ export class GenreService {
   }
 
   getAuthToken(): any {
-    return window.localStorage.getItem('auth');
+    return window.sessionStorage.getItem('auth');
   }
 }

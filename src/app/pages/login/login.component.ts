@@ -16,6 +16,7 @@ import { UserService } from '../service/user.service';
 import { first } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { GameServiceService } from '../service/gameService.service';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,6 +35,8 @@ import { GameServiceService } from '../service/gameService.service';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  decoded: any;
+  static role: any;
   constructor(
     private service: UserService,
     private fb: FormBuilder,
@@ -58,11 +61,13 @@ export class LoginComponent implements OnInit {
       )
       .pipe(first())
       .subscribe((data: any) => {
-        localStorage.setItem('auth', data.token);
+        sessionStorage.setItem('auth', data.token);
+        this.decoded = jwtDecode(data.token);
+        console.log(this.decoded);
         // (this.userData = data),
         //   console.log(this.userData.token),
       });
-      this.gamesService.logged = true;
+    this.gamesService.logged = true;
     const delayInMilliseconds = 100;
 
     setTimeout(() => {

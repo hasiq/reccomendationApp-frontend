@@ -58,7 +58,7 @@ export class GameServiceService {
   }
 
   getAuthToken(): string | null {
-    return window.localStorage.getItem('auth');
+    return window.sessionStorage.getItem('auth');
   }
 
   countAllGames() {

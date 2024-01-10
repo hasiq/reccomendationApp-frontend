@@ -35,10 +35,10 @@ import { GameServiceService } from './pages/service/gameService.service';
     FormsModule,
   ],
 })
-export class AppComponent{
+export class AppComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  token = window.localStorage.getItem('auth');
+  token = window.sessionStorage.getItem('auth');
   logged = false;
   mySubscription: any;
 
@@ -49,9 +49,5 @@ export class AppComponent{
       shareReplay()
     );
 
-
-
-  constructor(public service: GameServiceService) {
-
-  }
+  constructor(public service: GameServiceService) {}
 }

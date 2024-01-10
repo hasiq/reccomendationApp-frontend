@@ -150,7 +150,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
   }
 
   switchTable() {
-    if (this.token != null) {
+    if (this.role == 'admin') {
       this.displayedColumns = [
         'ID',
         'name',
@@ -176,6 +176,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
     window.sessionStorage.removeItem('auth');
     this.router.navigate([this.router.url]);
     this.service.logged = false;
+    LoginComponent.role = '';
   }
 
   edit(gameId: any) {

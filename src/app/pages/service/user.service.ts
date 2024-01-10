@@ -35,11 +35,11 @@ export class UserService {
     return window.sessionStorage.getItem('auth');
   }
 
-  getUserByLogin(login: string) {
+  getUserByFirstName(firstName: string) {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    let params = new HttpParams().set('login', login);
+    let params = new HttpParams().set('firstName', firstName);
     return this.http.get('http://localhost:8080/user', { params, headers });
   }
 }

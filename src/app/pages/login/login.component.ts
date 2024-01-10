@@ -64,6 +64,12 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('auth', data.token);
         this.decoded = jwtDecode(data.token);
         console.log(this.decoded);
+        this.service
+          .getUserByFirstName(this.decoded.firstName)
+          .pipe(first())
+          .subscribe((data: any) => {
+            LoginComponent.role = data.role;
+          });
         // (this.userData = data),
         //   console.log(this.userData.token),
       });

@@ -1,3 +1,4 @@
+import { DataSource } from '@angular/cdk/collections';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -20,6 +21,7 @@ import { GameServiceService } from '../../service/gameService.service';
 import { elementAt, first } from 'rxjs';
 import { GenreService } from '../../service/genre.service';
 import { MatTableModule } from '@angular/material/table';
+import { LoginComponent } from '../../login/login.component';
 @Component({
   selector: 'app-gameRecomendation',
   standalone: true,
@@ -44,8 +46,9 @@ export class GameRecomendationComponent implements OnInit {
   gamesForm!: FormGroup;
   data?: any;
   genres: any = [];
+  role = LoginComponent.role;
 
-  displayedColumns = ['ID', 'name', 'compatibility'];
+  displayedColumns = ['ID', 'name', 'compatibility', 'review'];
   static value: number;
   constructor(
     private fb: FormBuilder,
@@ -57,6 +60,8 @@ export class GameRecomendationComponent implements OnInit {
     this.gamesForm = this.fb.group({
       limit: ['', Validators.max(100)],
     });
+
+    this.switchTable();
 
     return this.service2
       .getAllGenres()
@@ -96,5 +101,25 @@ export class GameRecomendationComponent implements OnInit {
       )
       .pipe(first())
       .subscribe((data) => (console.log(data), (this.data = data)));
+  }
+
+  add(id: any) {
+    let data = this.data[id];
+    this.service
+      .addToFavorities(data.id)
+      .pipe(first())
+      .subscribe((data) => console.log(data));
+  }
+
+  switchTable() {
+    if (this.role != '') {
+      this.displayedColumns = [
+        'ID',
+        'name',
+        'compatibility',
+        'review',
+        'addGame',
+      ];
+    }
   }
 }

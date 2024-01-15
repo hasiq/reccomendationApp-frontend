@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UserService } from '../service/user.service';
 import { first } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +32,12 @@ import { first } from 'rxjs';
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
-  constructor(private fb: FormBuilder, private service: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: UserService,
+    private _snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -51,5 +58,8 @@ export class RegisterComponent implements OnInit {
       )
       .pipe(first())
       .subscribe((data) => console.log(data));
+    this.form.reset();
+    this._snackBar.open('Dodano użytkownika', 'Ok');
+    this.router.navigate(['/login']);
   }
 }

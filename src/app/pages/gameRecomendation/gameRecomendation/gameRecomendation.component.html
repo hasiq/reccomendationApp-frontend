@@ -16,11 +16,31 @@
   </ng-container>
 
   <ng-container matColumnDef="compatibility">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-      Compatibility(in mniejsza liczba tym gra jest bardziej podobna)
-    </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Compatibility</th>
     <td mat-cell *matCellDef="let row">
       {{ row.compatibility }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="review">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rewiev</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.review }}
+    </td>
+  </ng-container>
+
+  <ng-container *ngIf="role != ''" matColumnDef="addGame">
+    <th mat-header-cell *matHeaderCellDef>Add to favorities</th>
+    <td mat-cell *matCellDef="let row; let i = index">
+      <button
+        class="button"
+        mat-button
+        mat-raised-button
+        color="primary"
+        (click)="add(i)"
+      >
+        Add
+      </button>
     </td>
   </ng-container>
 
@@ -51,8 +71,6 @@
         {{ genre.name }}</mat-chip-option
       >
     </mat-chip-listbox>
-
-   
 
     <button
       [disabled]="gamesForm.invalid"

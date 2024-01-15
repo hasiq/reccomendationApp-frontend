@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { GameRecomendationComponent } from './pages/gameRecomendation/gameRecomendation/gameRecomendation.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { FavoriteGamesComponent } from './pages/favoriteGames/favoriteGames.component';
 
 export const routes: Routes = [
   { path: '', component: AppComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'recommend', component: GameRecomendationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'favorities', component: FavoriteGamesComponent },
 ];

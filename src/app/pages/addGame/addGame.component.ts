@@ -1,25 +1,26 @@
-import { DialogRef } from '@angular/cdk/dialog';
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { GameServiceService } from '../service/gameService.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { GameServiceService } from '../service/gameService.service';
 import { first } from 'rxjs';
-import { BrowserModule } from '@angular/platform-browser';
+import { EditGameComponent } from '../editGame/editGame.component';
 import { GenreService } from '../service/genre.service';
-import { CommonModule } from '@angular/common';
+
 @Component({
-  selector: 'app-editGame',
-  templateUrl: './editGame.component.html',
-  styleUrls: ['./editGame.component.css'],
+  selector: 'app-addGame',
+  templateUrl: './addGame.component.html',
+  styleUrls: ['./addGame.component.css'],
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -32,21 +33,15 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ],
 })
-export class EditGameComponent implements OnInit {
+export class AddGameComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private fb: FormBuilder,
     private service: GameServiceService,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private genreService: GenreService,
-    public dialogRef: MatDialogRef<EditGameComponent>
-  ) {
-    console.log(data);
-    console.log(data.dataKey.name);
-    console.log(data.dataKey.id);
-    console.log(data.dataKey.genre.name);
-    console.log(data.dataKey.description);
-  }
+    public dialogRef: MatDialogRef<AddGameComponent>
+  ) {}
 
   genres: any = [];
 
@@ -57,14 +52,14 @@ export class EditGameComponent implements OnInit {
       .subscribe((data) => {
         this.genres = data;
       });
-    let game = this.data.dataKey;
     this.form = this.fb.group({
-      name: [game.name],
-      description: [game.description],
-      author: [game.author],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      author: ['', Validators.required],
+      releaseDate: ['', Validators.required],
+      steamLink: ['', Validators.required],
+      review: ['', Validators.required],
       genre: [this.selectedChips],
-      releaseDate: [game.releaseDate],
-      steamLink: [game.steamLink],
     });
   }
 
@@ -79,9 +74,9 @@ export class EditGameComponent implements OnInit {
       this.selectedChips.push(genres);
     }
   }
-  edit(data: any) {
+  add(data: any) {
     this.service
-      .editGame(this.data.dataKey.id, data.value)
+      .addGame(data.value)
       .pipe(first())
       .subscribe(() => {
         console.log(data);

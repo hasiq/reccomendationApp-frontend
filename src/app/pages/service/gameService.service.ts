@@ -83,5 +83,37 @@ export class GameServiceService {
     });
   }
 
+  addGame(data: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.post('http://localhost:8080/game', data, { headers });
+  }
+
+  findFavoriteGames(id: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.get('http://localhost:8080/favorite', { headers });
+  }
+
+  deleteFavorite(id: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.delete(`http://localhost:8080/favorite/${id}`, {
+      headers,
+    });
+  }
+
+  addToFavorities(id: any) {
+    let decode = this.getAuthToken();
+    let headers = {};
+    headers = { Authorization: 'Bearer ' + decode };
+    return this.http.post(`http://localhost:8080/favorite/${id}`, null, {
+      headers,
+    });
+  }
+
   logged = false;
 }

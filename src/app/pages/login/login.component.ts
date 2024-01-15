@@ -17,6 +17,7 @@ import { first } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { GameServiceService } from '../service/gameService.service';
 import { jwtDecode } from 'jwt-decode';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,12 +37,13 @@ import { jwtDecode } from 'jwt-decode';
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   decoded: any;
-  static role: any;
+  static role: any = '';
   constructor(
     private service: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private gamesService: GameServiceService
+    private gamesService: GameServiceService,
+    private _snackBar: MatSnackBar
   ) {}
   userData: any;
   ngOnInit() {
@@ -71,10 +73,10 @@ export class LoginComponent implements OnInit {
             LoginComponent.role = data.role;
           });
         // (this.userData = data),
-        //   console.log(this.userData.token),
       });
     this.gamesService.logged = true;
     const delayInMilliseconds = 100;
+    this._snackBar.open('Zalogowano', 'Ok');
 
     setTimeout(() => {
       this.router.navigate(['/games']);

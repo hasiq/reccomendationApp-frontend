@@ -1,4 +1,4 @@
-import { EditFilmComponent } from '../editGame/editGame.component';
+import { EditGameComponent } from '../editGame/editGame.component';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import {
@@ -31,6 +31,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
+import { AddGameComponent } from '../addGame/addGame.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-games',
@@ -99,7 +101,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -180,13 +183,15 @@ export class GamesComponent implements AfterViewInit, OnInit {
   }
 
   edit(gameId: any) {
-    this.dialog.open(EditFilmComponent, {
+    this.dialog.open(EditGameComponent, {
       height: '300px',
       data: {
         dataKey: this.dataSource[gameId],
       },
     });
-    this.dialog.afterAllClosed.subscribe(() => this.loadData());
+    this.dialog.afterAllClosed.subscribe(
+      () => (this.loadData(), this._snackBar.open('Zmodyfikowano Grę', 'Ok'))
+    );
   }
 
   delete(id: any) {
@@ -195,5 +200,14 @@ export class GamesComponent implements AfterViewInit, OnInit {
       .deleteGame(data.id)
       .pipe(first())
       .subscribe(() => this.loadData());
+  }
+
+  add() {
+    this.dialog.open(AddGameComponent, {
+      height: '300px',
+    });
+    this.dialog.afterAllClosed.subscribe(
+      () => (this.loadData(), this._snackBar.open('Dodano Grę', 'Ok'))
+    );
   }
 }

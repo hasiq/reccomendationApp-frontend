@@ -33,6 +33,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { AddGameComponent } from '../addGame/addGame.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../confirmationDialog/confirmationDialog.component';
 
 @Component({
   selector: 'app-games',
@@ -103,6 +104,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -190,24 +192,33 @@ export class GamesComponent implements AfterViewInit, OnInit {
       },
     });
     this.dialog.afterAllClosed.subscribe(
-      () => (this.loadData(), this._snackBar.open('Zmodyfikowano Grę', 'Ok'))
+      () => (
+        this.loadData(),
+        this._snackBar.open('Zmodyfikowano Grę', 'Zamknij', { duration: 3000 })
+      )
     );
   }
 
   delete(id: any) {
-    let data = this.dataSource[id];
-    this.service
-      .deleteGame(data.id)
-      .pipe(first())
-      .subscribe(() => this.loadData());
+    this.dialog.open(ConfirmationDialogComponent, {
+      height: '300px',
+      width: '300px',
+      data: {
+        dataKey: this.dataSource[id],
+      },
+    });
+    this.dialog.afterAllClosed.subscribe(() => this.loadData());
   }
 
   add() {
     this.dialog.open(AddGameComponent, {
-      height: '300px',
+      height: '200px',
     });
     this.dialog.afterAllClosed.subscribe(
-      () => (this.loadData(), this._snackBar.open('Dodano Grę', 'Ok'))
+      () => (
+        this.loadData(),
+        this.snackBar.open('Dodano Grę', 'Zamknij', { duration: 3000 })
+      )
     );
   }
 }

@@ -1,0 +1,12 @@
+<form>
+  <mat-form-field>
+    <mat-label>Select</mat-label>
+    <mat-select (selectionChange)="selectedValue($event)">
+      <mat-option [value]="'yes'">Yes</mat-option>
+      <mat-option [value]="'no'">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<button mat-raised-button color="primary" type="submit" (click)="send(form)">
+  Send
+</button>

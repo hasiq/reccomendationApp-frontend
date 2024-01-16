@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -56,9 +56,6 @@ export class ConfirmationDialogComponent implements OnInit {
         .deleteGame(data.id)
         .pipe(first())
         .subscribe(() => console.log(data));
-      this._snackBar.open('Usunięto Grę', 'Zamknij', { duration: 2000 });
-    } else {
-      this._snackBar.open('Nie usunięto gry', 'Zamknij', { duration: 2000 });
     }
     this.dialogRef.close();
   }

@@ -8,27 +8,27 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class GameServiceService {
+  localhost: string = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
-
   getAllGames(): any {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get<any>('http://localhost:8080/games', { headers });
+    return this.http.get<any>('/api/games', { headers });
   }
 
   getGameById(id: number): Observable<any> {
     // let decode = this.getAuthToken();
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get<any>(`http://localhost:8080/games/${id}`);
+    return this.http.get<any>(this.localhost + '/games/' + id);
   }
 
   reccomendGame(genres: string[], compatibility: number, limit: number) {
     // let decode = this.getAuthToken();
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post('http://localhost:8080/games/recommend', {
+    return this.http.post(this.localhost + '/games/recommend', {
       genres,
       compatibility,
       limit,
@@ -43,7 +43,7 @@ export class GameServiceService {
     // let decode = this.getAuthToken();
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get('http://localhost:8080/paged', { params });
+    return this.http.get(this.localhost + '/paged', { params });
   }
 
   getByGameName(name: string) {
@@ -52,7 +52,7 @@ export class GameServiceService {
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
 
-    return this.http.get('http://localhost:8080/games/name', {
+    return this.http.get(this.localhost + '/games/name', {
       params,
     });
   }
@@ -62,14 +62,14 @@ export class GameServiceService {
   }
 
   countAllGames() {
-    return this.http.get('http://localhost:8080/count');
+    return this.http.get(this.localhost + '/count');
   }
 
   editGame(id: number, body: any) {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.put(`http://localhost:8080/games/${id}`, body, {
+    return this.http.put(this.localhost + `/games/${id}`, body, {
       headers,
     });
   }
@@ -78,7 +78,7 @@ export class GameServiceService {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.delete(`http://localhost:8080/games/${id}`, {
+    return this.http.delete(this.localhost + `/games/${id}`, {
       headers,
     });
   }
@@ -87,21 +87,21 @@ export class GameServiceService {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post('http://localhost:8080/game', data, { headers });
+    return this.http.post(this.localhost + '/game', data, { headers });
   }
 
   findFavoriteGames(id: any) {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get('http://localhost:8080/favorite', { headers });
+    return this.http.get(this.localhost + '/favorite', { headers });
   }
 
   deleteFavorite(id: any) {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.delete(`http://localhost:8080/favorite/${id}`, {
+    return this.http.delete(this.localhost + `/favorite/${id}`, {
       headers,
     });
   }
@@ -110,7 +110,7 @@ export class GameServiceService {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post(`http://localhost:8080/favorite/${id}`, null, {
+    return this.http.post(this.localhost + `/favorite/${id}`, null, {
       headers,
     });
   }

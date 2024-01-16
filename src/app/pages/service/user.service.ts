@@ -6,12 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+  localhost: string = 'http://localhost:8080';
 
   login(login: string, password: string) {
     // let decode = this.getAuthToken();
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post('http://localhost:8080/login', { login, password });
+    return this.http.post(this.localhost + '/login', { login, password });
   }
 
   register(
@@ -23,7 +24,7 @@ export class UserService {
     // let decode = this.getAuthToken();
     // let headers = {};
     // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post('http://localhost:8080/register', {
+    return this.http.post(this.localhost + '/register', {
       login,
       password,
       firstName,
@@ -40,6 +41,6 @@ export class UserService {
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
     let params = new HttpParams().set('firstName', firstName);
-    return this.http.get('http://localhost:8080/user', { params, headers });
+    return this.http.get(this.localhost + '/user', { params, headers });
   }
 }

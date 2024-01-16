@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class GenreService {
   constructor(private http: HttpClient) {}
+  localhost: string = 'http://localhost:8080';
 
   getAllGenres() {
     // let decode = this.getAuthToken();
@@ -14,7 +15,7 @@ export class GenreService {
     // headers = { Authorization: 'Bearer ' + decode };
     // console.log(headers);
     // console.log(decode);
-    return this.http.get('http://localhost:8080/genres');
+    return this.http.get(this.localhost + '/genres');
   }
 
   getAuthToken(): any {

@@ -104,7 +104,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private snackBar1: MatSnackBar
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -114,17 +115,6 @@ export class GamesComponent implements AfterViewInit, OnInit {
       }
     });
   }
-
-  // fetchAllGames() {
-  //   this.service
-  //     .getAllGames()
-  //     .pipe(first())
-  //     .subscribe(
-  //       (games: any) => (
-  //         (this.dataSource = games), console.log(this.dataSource)
-  //       )
-  //     );
-  // }
 
   ngOnInit(): void {
     // this.fetchAllGames();

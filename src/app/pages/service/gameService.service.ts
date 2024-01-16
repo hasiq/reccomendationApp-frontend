@@ -10,24 +10,12 @@ import { jwtDecode } from 'jwt-decode';
 export class GameServiceService {
   localhost: string = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
-  getAllGames(): any {
-    let decode = this.getAuthToken();
-    let headers = {};
-    headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get<any>('/api/games', { headers });
-  }
 
   getGameById(id: number): Observable<any> {
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
     return this.http.get<any>(this.localhost + '/games/' + id);
   }
 
   reccomendGame(genres: string[], compatibility: number, limit: number) {
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
     return this.http.post(this.localhost + '/games/recommend', {
       genres,
       compatibility,
@@ -40,17 +28,11 @@ export class GameServiceService {
       .set('pageSize', pageSize.toString())
       .set('pageNo', pageNumber.toString());
 
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
-    return this.http.get(this.localhost + '/paged', { params });
+    return this.http.get(this.localhost + '/games', { params });
   }
 
   getByGameName(name: string) {
     let params = new HttpParams().set('name', name);
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
 
     return this.http.get(this.localhost + '/games/name', {
       params,
@@ -87,7 +69,7 @@ export class GameServiceService {
     let decode = this.getAuthToken();
     let headers = {};
     headers = { Authorization: 'Bearer ' + decode };
-    return this.http.post(this.localhost + '/game', data, { headers });
+    return this.http.post(this.localhost + '/games', data, { headers });
   }
 
   findFavoriteGames(id: any) {
@@ -114,6 +96,5 @@ export class GameServiceService {
       headers,
     });
   }
-
   logged = false;
 }

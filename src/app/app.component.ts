@@ -39,7 +39,6 @@ export class AppComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
   token = window.sessionStorage.getItem('auth');
-  logged = false;
   mySubscription: any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver

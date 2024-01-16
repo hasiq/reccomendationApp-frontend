@@ -72,11 +72,10 @@ export class LoginComponent implements OnInit {
           .subscribe((data: any) => {
             LoginComponent.role = data.role;
           });
-        // (this.userData = data),
+        this.gamesService.logged = true;
       });
-    this.gamesService.logged = true;
     const delayInMilliseconds = 100;
-    this._snackBar.open('Zalogowano', 'Ok');
+    this._snackBar.open('Zalogowano', 'Ok', { duration: 3000 });
 
     setTimeout(() => {
       this.router.navigate(['/games']);

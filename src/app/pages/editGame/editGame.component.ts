@@ -41,11 +41,7 @@ export class EditGameComponent implements OnInit {
     private genreService: GenreService,
     public dialogRef: MatDialogRef<EditGameComponent>
   ) {
-    console.log(data);
-    console.log(data.dataKey.name);
-    console.log(data.dataKey.id);
-    console.log(data.dataKey.genre.name);
-    console.log(data.dataKey.description);
+    
   }
 
   genres: any = [];
@@ -84,9 +80,6 @@ export class EditGameComponent implements OnInit {
       .editGame(this.data.dataKey.id, data.value)
       .pipe(first())
       .subscribe(() => {
-        console.log(data);
-        console.log(data.value.description);
-        console.log(data.value.steamLink);
       });
     this.dialogRef.close();
   }

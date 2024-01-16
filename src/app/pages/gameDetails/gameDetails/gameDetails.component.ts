@@ -37,7 +37,7 @@ export class GameDetailsComponent implements OnInit {
       .getGameById(this.gameid)
       .pipe(first())
       .subscribe(
-        (data: any) => ((this.dataSource = data), console.log(this.dataSource))
+        (data: any) => ((this.dataSource = data))
       );
   }
 }

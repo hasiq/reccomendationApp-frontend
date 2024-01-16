@@ -100,7 +100,7 @@ export class GameRecomendationComponent implements OnInit {
         this.gamesForm.controls['limit'].value
       )
       .pipe(first())
-      .subscribe((data) => (console.log(data), (this.data = data)));
+      .subscribe((data) =>  (this.data = data));
   }
 
   add(id: any) {

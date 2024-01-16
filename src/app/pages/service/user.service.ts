@@ -9,9 +9,7 @@ export class UserService {
   localhost: string = 'http://localhost:8080';
 
   login(login: string, password: string) {
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
+
     return this.http.post(this.localhost + '/login', { login, password });
   }
 
@@ -21,9 +19,7 @@ export class UserService {
     firstName: string,
     lastName: string
   ) {
-    // let decode = this.getAuthToken();
-    // let headers = {};
-    // headers = { Authorization: 'Bearer ' + decode };
+    
     return this.http.post(this.localhost + '/register', {
       login,
       password,

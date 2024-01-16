@@ -8,7 +8,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FavoriteGamesComponent } from './pages/favoriteGames/favoriteGames.component';
 
 export const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', component: GamesComponent },
   { path: 'games', component: GamesComponent },
   { path: 'games/:id', component: GameDetailsComponent },
   { path: 'recommend', component: GameRecomendationComponent },

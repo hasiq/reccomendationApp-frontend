@@ -110,7 +110,6 @@ export class GamesComponent implements AfterViewInit, OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
         this.router.navigated = false;
       }
     });
@@ -170,8 +169,9 @@ export class GamesComponent implements AfterViewInit, OnInit {
     console.log(window.sessionStorage.getItem('auth'));
     window.sessionStorage.removeItem('auth');
     this.router.navigate([this.router.url]);
-    this.service.logged = false;
     LoginComponent.role = '';
+    this.service.logged = false;
+    this.snackBar1.open('Wylogowano', 'Zamknij', { duration: 3000 });
   }
 
   edit(gameId: any) {

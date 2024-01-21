@@ -176,7 +176,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
 
   edit(gameId: any) {
     this.dialog.open(EditGameComponent, {
-      height: '300px',
+      height: '500px',
       data: {
         dataKey: this.dataSource[gameId],
       },
@@ -202,7 +202,7 @@ export class GamesComponent implements AfterViewInit, OnInit {
 
   add() {
     this.dialog.open(AddGameComponent, {
-      height: '200px',
+      height: '500px',
     });
     this.dialog.afterAllClosed.subscribe(
       () => (

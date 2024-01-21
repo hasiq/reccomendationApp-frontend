@@ -48,7 +48,7 @@ export class GameRecomendationComponent implements OnInit {
   genres: any = [];
   role = LoginComponent.role;
 
-  displayedColumns = ['ID', 'name', 'compatibility', 'review'];
+  displayedColumns = ['ID', 'name', 'distance'];
   static value: number;
   constructor(
     private fb: FormBuilder,
@@ -100,7 +100,7 @@ export class GameRecomendationComponent implements OnInit {
         this.gamesForm.controls['limit'].value
       )
       .pipe(first())
-      .subscribe((data) =>  (this.data = data));
+      .subscribe((data) => (this.data = data));
   }
 
   add(id: any) {
@@ -113,13 +113,7 @@ export class GameRecomendationComponent implements OnInit {
 
   switchTable() {
     if (this.role != '') {
-      this.displayedColumns = [
-        'ID',
-        'name',
-        'compatibility',
-        'review',
-        'addGame',
-      ];
+      this.displayedColumns = ['ID', 'name', 'distance', 'review', 'addGame'];
     }
   }
 }

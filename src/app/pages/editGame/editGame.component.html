@@ -66,6 +66,12 @@
     {{ genre.name }}</mat-chip-option
   >
 </mat-chip-listbox>
-<button mat-raised-button color="primary" type="submit" (click)="edit(form)">
+<button
+  mat-raised-button
+  color="primary"
+  type="submit"
+  (click)="edit(form)"
+  [disabled]="form.invalid"
+>
   Edit
 </button>

@@ -21,7 +21,13 @@
       formControlName="password"
     />
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" (click)="Login()">
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="Login()"
+    [disabled]="form.invalid"
+  >
     Login
   </button>
 </form>

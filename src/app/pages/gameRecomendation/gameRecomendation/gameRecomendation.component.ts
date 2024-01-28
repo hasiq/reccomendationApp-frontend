@@ -18,10 +18,12 @@ import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { GameServiceService } from '../../service/gameService.service';
-import { elementAt, first } from 'rxjs';
+import { elementAt, first, raceWith } from 'rxjs';
 import { GenreService } from '../../service/genre.service';
 import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from '../../login/login.component';
+import { ShareButtonModule } from 'ngx-sharebuttons/button';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 @Component({
   selector: 'app-gameRecomendation',
   standalone: true,
@@ -38,6 +40,8 @@ import { LoginComponent } from '../../login/login.component';
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
+    ShareButtonModule,
+    ShareIconsModule,
   ],
   templateUrl: './gameRecomendation.component.html',
   styleUrls: ['./gameRecomendation.component.css'],
@@ -48,7 +52,7 @@ export class GameRecomendationComponent implements OnInit {
   genres: any = [];
   role = LoginComponent.role;
 
-  displayedColumns = ['ID', 'name', 'distance'];
+  displayedColumns = ['ID', 'name', 'distance', 'similarity', 'share'];
   static value: number;
   constructor(
     private fb: FormBuilder,
@@ -58,7 +62,7 @@ export class GameRecomendationComponent implements OnInit {
 
   ngOnInit() {
     this.gamesForm = this.fb.group({
-      limit: ['', Validators.max(100)],
+      limit: ['', [Validators.max(100), Validators.required]],
     });
 
     this.switchTable();
@@ -67,14 +71,6 @@ export class GameRecomendationComponent implements OnInit {
       .getAllGenres()
       .pipe(first())
       .subscribe((data) => (this.genres = data));
-  }
-
-  formatLabel(value: number): string {
-    if (value >= 1000) {
-      return Math.round(value / 100) + '';
-    }
-    GameRecomendationComponent.value = value;
-    return `${value}`;
   }
 
   selectedChips: string[] = [];
@@ -100,7 +96,26 @@ export class GameRecomendationComponent implements OnInit {
         this.gamesForm.controls['limit'].value
       )
       .pipe(first())
-      .subscribe((data) => (this.data = data));
+      .subscribe((data: any) => {
+        let dataInfo: any = [];
+        for (var row of data) {
+          dataInfo.push({
+            id: row.id,
+            name: row.name,
+            compatibility: row.compatibility,
+            info:
+              'Dla podanych gatunków : ' +
+              this.selectedChips +
+              '  została mi polecona gra: ' +
+              row.name +
+              ' o takim podobieństwie: ' +
+              (1 - row.compatibility) * 100 +
+              '%' +
+              ', link do strony: ',
+          });
+        }
+        this.data = dataInfo;
+      });
   }
 
   add(id: any) {
@@ -113,7 +128,15 @@ export class GameRecomendationComponent implements OnInit {
 
   switchTable() {
     if (this.role != '') {
-      this.displayedColumns = ['ID', 'name', 'distance', 'review', 'addGame'];
+      this.displayedColumns = [
+        'ID',
+        'name',
+        'distance',
+        'review',
+        'similarity',
+        'addGame',
+        'share',
+      ];
     }
   }
 }

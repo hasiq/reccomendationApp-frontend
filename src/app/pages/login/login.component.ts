@@ -8,6 +8,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -48,8 +49,8 @@ export class LoginComponent implements OnInit {
   userData: any;
   ngOnInit() {
     this.form = this.fb.group({
-      login: [''],
-      password: [''],
+      login: ['', Validators.required],
+      password: ['',Validators.required],
     });
   }
 
@@ -62,23 +63,32 @@ export class LoginComponent implements OnInit {
         this.form.controls['password'].value
       )
       .pipe(first())
-      .subscribe((data: any) => {
-        sessionStorage.setItem('auth', data.token);
-        this.decoded = jwtDecode(data.token);
-        console.log(this.decoded);
-        this.service
-          .getUserByFirstName(this.decoded.firstName)
-          .pipe(first())
-          .subscribe((data: any) => {
-            LoginComponent.role = data.role;
+      .subscribe({
+        next: (data: any) => {
+          sessionStorage.setItem('auth', data.token);
+          this.decoded = jwtDecode(data.token);
+          console.log(this.decoded);
+          this.service
+            .getUserByFirstName(this.decoded.firstName)
+            .pipe(first())
+            .subscribe((data: any) => {
+              LoginComponent.role = data.role;
+            });
+          this.gamesService.logged = true;
+        },
+        error: () => {
+          this._snackBar.open('Niepoprawne dane', 'Zamknij', {
+            duration: 2500,
           });
-        this.gamesService.logged = true;
-      });
-    const delayInMilliseconds = 100;
-    this._snackBar.open('Zalogowano', 'Ok', { duration: 3000 });
+        },
+        complete: () => {
+          const delayInMilliseconds = 100;
+          this._snackBar.open('Zalogowano', 'Ok', { duration: 3000 });
 
-    setTimeout(() => {
-      this.router.navigate(['/games']);
-    }, delayInMilliseconds);
+          setTimeout(() => {
+            this.router.navigate(['/games']);
+          }, delayInMilliseconds);
+        },
+      });
   }
 }

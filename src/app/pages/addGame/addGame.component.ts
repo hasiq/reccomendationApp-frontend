@@ -6,6 +6,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
+  FormControl,
+  FormGroupDirective,
+  NgForm,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';

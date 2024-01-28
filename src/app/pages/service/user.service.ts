@@ -19,7 +19,7 @@ export class UserService {
     firstName: string,
     lastName: string
   ) {
-    
+
     return this.http.post(this.localhost + '/register', {
       login,
       password,

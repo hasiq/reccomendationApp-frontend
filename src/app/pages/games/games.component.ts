@@ -103,6 +103,8 @@ export class GamesComponent implements AfterViewInit, OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
+    public dialog1: MatDialog,
+    public dialog2: MatDialog,
     private _snackBar: MatSnackBar,
     private snackBar: MatSnackBar,
     private snackBar1: MatSnackBar
@@ -175,40 +177,44 @@ export class GamesComponent implements AfterViewInit, OnInit {
   }
 
   edit(gameId: any) {
-    this.dialog.open(EditGameComponent, {
+    const editDialog = this.dialog2.open(EditGameComponent, {
       height: '500px',
       data: {
         dataKey: this.dataSource[gameId],
       },
     });
-    this.dialog.afterAllClosed.subscribe(
+    editDialog.afterClosed().subscribe(
       () => (
         this.loadData(),
-        this._snackBar.open('Zmodyfikowano Grę', 'Zamknij', { duration: 3000 })
+        this._snackBar.open('Zmodyfikowano Grę', 'Zamknij', {
+          duration: 3000,
+        })
       )
     );
   }
 
   delete(id: any) {
-    this.dialog.open(ConfirmationDialogComponent, {
+    const deleteDialog = this.dialog.open(ConfirmationDialogComponent, {
       height: '300px',
       width: '300px',
       data: {
         dataKey: this.dataSource[id],
       },
     });
-    this.dialog.afterAllClosed.subscribe(() => this.loadData());
+    deleteDialog.afterClosed().subscribe(() => this.loadData());
   }
 
   add() {
-    this.dialog.open(AddGameComponent, {
+    const addDialog = this.dialog1.open(AddGameComponent, {
       height: '500px',
     });
-    this.dialog.afterAllClosed.subscribe(
-      () => (
-        this.loadData(),
-        this.snackBar.open('Dodano Grę', 'Zamknij', { duration: 3000 })
-      )
-    );
+    addDialog
+      .afterClosed()
+      .subscribe(
+        () => (
+          this.loadData(),
+          this.snackBar.open('Dodano Grę', 'Zamknij', { duration: 3000 })
+        )
+      );
   }
 }

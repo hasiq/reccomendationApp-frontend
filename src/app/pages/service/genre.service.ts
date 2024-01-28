@@ -10,7 +10,7 @@ export class GenreService {
   localhost: string = 'http://localhost:8080';
 
   getAllGenres() {
-    
+
     return this.http.get(this.localhost + '/genres');
   }
 

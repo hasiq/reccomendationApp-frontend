@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <mat-form-field>
-    <label for="gameName">GameName</label>
+    <mat-label for="gameName">GameName</mat-label>
     <input
       class="formControl"
       matInput
@@ -11,7 +11,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="description">Description</label>
+    <mat-label for="description">Description</mat-label>
     <input
       class="formControl"
       matInput
@@ -22,7 +22,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="author">Author</label>
+    <mat-label for="author">Author</mat-label>
     <input
       class="formControl"
       matInput
@@ -34,7 +34,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <label for="releaseDate">Release date</label>
+    <mat-label for="releaseDate">Release date</mat-label>
     <input
       class="formControl"
       matInput
@@ -45,7 +45,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="link">Link</label>
+    <mat-label for="link">Link</mat-label>
     <input
       class="formControl"
       matInput
@@ -56,7 +56,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="review">Review</label>
+    <mat-label for="review">Review</mat-label>
     <input
       class="formControl"
       matInput
@@ -77,6 +77,12 @@
     {{ genre.name }}</mat-chip-option
   >
 </mat-chip-listbox>
-<button mat-raised-button color="primary" type="submit" (click)="add(form)">
+<button
+  mat-raised-button
+  color="primary"
+  type="submit"
+  (click)="add(form)"
+  [disabled]="form.invalid"
+>
   Add
 </button>

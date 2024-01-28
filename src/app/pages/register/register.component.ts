@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -41,10 +42,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: [''],
-      lastName: [''],
-      login: [''],
-      password: [''],
+      name: ['', Validators.required],
+      lastName: ['',Validators.required],
+      login: ['',Validators.required],
+      password: ['',Validators.required],
     });
   }
 
@@ -57,9 +58,19 @@ export class RegisterComponent implements OnInit {
         this.form.controls['lastName'].value
       )
       .pipe(first())
-      .subscribe((data) => console.log(data));
-    this.form.reset();
-    this._snackBar.open('Dodano użytkownika', 'Ok');
-    this.router.navigate(['/login']);
+      .subscribe({
+        next: (data) => {
+          this.form.reset();
+          this._snackBar.open('Dodano użytkownika', 'Zamknij', {
+            duration: 2500,
+          });
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          this._snackBar.open('Taki użytkownik już istnieje', 'Zamknij', {
+            duration: 2500,
+          });
+        },
+      });
   }
 }

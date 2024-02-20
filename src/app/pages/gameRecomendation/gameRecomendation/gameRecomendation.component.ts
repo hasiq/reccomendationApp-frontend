@@ -103,6 +103,7 @@ export class GameRecomendationComponent implements OnInit {
             id: row.id,
             name: row.name,
             compatibility: row.compatibility,
+            review: row.review,
             info:
               'Dla podanych gatunków : ' +
               this.selectedChips +

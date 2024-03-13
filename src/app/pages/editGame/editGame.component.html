@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <mat-form-field>
-    <label for="gameName">GameName</label>
+    <label for="gameName">Tytuł</label>
     <input
       class="formControl"
       matInput
@@ -11,7 +11,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="description">Description</label>
+    <label for="description">Opis</label>
     <input
       class="formControl"
       matInput
@@ -22,7 +22,7 @@
     />
   </mat-form-field>
   <mat-form-field>
-    <label for="author">Author</label>
+    <label for="author">Autor</label>
     <input
       class="formControl"
       matInput
@@ -34,7 +34,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <label for="releaseDate">Release date</label>
+    <label for="releaseDate">Data wydania</label>
     <input
       class="formControl"
       matInput
@@ -73,5 +73,5 @@
   (click)="edit(form)"
   [disabled]="form.invalid"
 >
-  Edit
+  Edytuj
 </button>

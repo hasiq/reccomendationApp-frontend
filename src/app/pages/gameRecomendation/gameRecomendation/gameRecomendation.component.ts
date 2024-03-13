@@ -52,7 +52,7 @@ export class GameRecomendationComponent implements OnInit {
   genres: any = [];
   role = LoginComponent.role;
 
-  displayedColumns = ['ID', 'name', 'distance', 'similarity', 'share'];
+  displayedColumns = ['ID', 'name', 'similarity', 'share'];
   static value: number;
   constructor(
     private fb: FormBuilder,
@@ -132,7 +132,6 @@ export class GameRecomendationComponent implements OnInit {
       this.displayedColumns = [
         'ID',
         'name',
-        'distance',
         'review',
         'similarity',
         'addGame',

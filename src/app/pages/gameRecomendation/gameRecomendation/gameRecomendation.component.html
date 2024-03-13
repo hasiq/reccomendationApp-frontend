@@ -11,18 +11,18 @@
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tytuł</th>
     <td mat-cell *matCellDef="let row">{{ row.name }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="distance">
+  <!-- <ng-container matColumnDef="distance">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
       Odległość(im gra jest bardziej podobna tym odległość jest mniejsza)
     </th>
     <td mat-cell *matCellDef="let row">
       {{ row.compatibility }}
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <ng-container matColumnDef="similarity">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Podobieństwo</th>
@@ -32,14 +32,14 @@
   </ng-container>
 
   <ng-container matColumnDef="review">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rewiev</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Opinie</th>
     <td mat-cell *matCellDef="let row">
       {{ row.review }}
     </td>
   </ng-container>
 
   <ng-container *ngIf="role != ''" matColumnDef="addGame">
-    <th mat-header-cell *matHeaderCellDef>Add to favorities</th>
+    <th mat-header-cell *matHeaderCellDef>Dodaj do ulubionych</th>
     <td mat-cell *matCellDef="let row; let i = index">
       <button
         class="button"
@@ -48,12 +48,12 @@
         color="primary"
         (click)="add(i)"
       >
-        Add
+        Dodaj
       </button>
     </td>
   </ng-container>
   <ng-container matColumnDef="share">
-    <th mat-header-cell *matHeaderCellDef>Share</th>
+    <th mat-header-cell *matHeaderCellDef>Opublikuj</th>
     <td mat-cell *matCellDef="let row">
       <share-button
         button="whatsapp"
@@ -70,7 +70,7 @@
 <div class="gameRecommendation">
   <form [formGroup]="gamesForm">
     <mat-form-field>
-      <mat-label>Limit of games</mat-label>
+      <mat-label>Limit gier</mat-label>
       <input
         matInput
         type="number"
@@ -96,7 +96,7 @@
       color="primary"
       (click)="recommend()"
     >
-      Recommend
+      Rekomenduj
     </button>
   </form>
 </div>

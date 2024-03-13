@@ -9,15 +9,15 @@
   >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list *ngIf="service.logged == false">
-      <a mat-list-item routerLink="games">Games</a>
-      <a mat-list-item routerLink="recommend">Recommend Game</a>
+      <a mat-list-item routerLink="games">Gry</a>
+      <a mat-list-item routerLink="recommend">Rekomendacja gry</a>
       <a mat-list-item routerLink="login">Login</a>
-      <a mat-list-item routerLink="register">Register</a>
+      <a mat-list-item routerLink="register">Rejestracja</a>
     </mat-nav-list>
     <mat-nav-list *ngIf="service.logged == true">
-      <a mat-list-item routerLink="games">Games</a>
-      <a mat-list-item routerLink="recommend">Recommend Game</a>
-      <a mat-list-item routerLink="favorities">Favorite Games</a>
+      <a mat-list-item routerLink="games">Gry</a>
+      <a mat-list-item routerLink="recommend">Rekomendacja gry</a>
+      <a mat-list-item routerLink="favorities">Ulubione gry</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

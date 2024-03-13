@@ -3,10 +3,10 @@
     <tr *ngFor="let data of dataSource">
       <th>ID : {{ data.id }}</th>
       <th>Tytuł: {{ data.name }}</th>
-      <th>Author: {{ data.author }}</th>
+      <th>Autor: {{ data.author }}</th>
       <th>Data wydania: {{ data.releaseDate }}</th>
       <th>Opis: {{ data.description }}</th>
-      <th *ngFor="let genre of data.genre">Kategorie: {{ genre.name }}</th>
+      <th *ngFor="let genre of data.genre">Kategoria: {{ genre.name }}</th>
       <th>
         Link:
         <a
